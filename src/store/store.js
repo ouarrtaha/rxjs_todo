@@ -3,7 +3,6 @@ import { ofType, combineEpics, createEpicMiddleware } from "redux-observable";
 import { map, flatMap } from "rxjs/operators";
 // import { ajax } from "rxjs/ajax";
 import * as Api from "../api";
-
 import {
   GET_USER,
   GET_USER_SUCCESS,
@@ -18,7 +17,6 @@ import {
   addTodoSuccess,
   completeTodoSuccess
 } from "./actions";
-
 
 
 function user(state = {}, action) {
@@ -39,7 +37,7 @@ function todos(state = [], action) {
     case COMPLETE_TODO_SUCCESS:
       return state.map(todo => {
         if (todo.id === action.payload.id) {
-          return { ...todo, completed: true };
+          return { ...todo, completed: action.payload.completed };
         }
         return todo;
       });

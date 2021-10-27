@@ -1,4 +1,13 @@
-import {Button, Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField} from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  LinearProgress,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  TextField
+} from "@mui/material";
 import {useEffect, useState} from "react";
 import './style.scss'
 
@@ -42,7 +51,6 @@ function TodoItem(props) {
   const {
     todo,
     handleToggle,
-    checked
   } = props;
   
   return (
@@ -51,7 +59,7 @@ function TodoItem(props) {
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={checked.indexOf(todo.id) !== -1}
+            checked={todo.completed}
             tabIndex={-1}
             disableRipple
             inputProps={{'aria-labelledby': todo.id}}
@@ -68,36 +76,26 @@ export function TodoList(props) {
     todos,
     getTodos,
     addTodo,
+    completeTodo,
   } = props;
-  
-  const [checked, setChecked] = useState([]);
   
   useEffect(() => {
     getTodos()
   }, [getTodos])
   
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    
-    setChecked(newChecked);
+  const handleToggle = (id) => () => {
+    completeTodo(id)
   };
   
   return (
     <div className="todo__list">
+      {/*<LinearProgress/>*/}
       <FormInput addTodo={addTodo} />
       {todos.map(item => (
         <TodoItem
           key={item.id}
           todo={item}
           handleToggle={handleToggle}
-          checked={checked}
         />
       ))}
     </div>

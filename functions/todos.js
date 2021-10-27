@@ -35,9 +35,13 @@ router.post("/", async (req, res) => {
 
 router.post("/:id/complete", async (req, res) => {
   const id = req.params.id;
-  await todosRef.doc(id).update({ completed: true });
-  const todo = (await todosRef.doc(id).get()).data();
-  res.status(200).send({ id, ...todo });
+  const doc = (await todosRef.doc(id).get()).data();
+  await todosRef.doc(id).update({ completed: !doc.completed });
+  const updated = (await todosRef.doc(id).get()).data();
+  res.status(200).send({
+    id,
+    ...updated,
+  });
 });
 
 module.exports = router;

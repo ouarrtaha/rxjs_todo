@@ -1,5 +1,6 @@
 import {Button, Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
+import './style.scss'
 
 function FormInput(props) {
   const {
@@ -18,8 +19,9 @@ function FormInput(props) {
   }
   
   return (
-    <div className={"input__container"}>
+    <div className={"input-container"}>
       <TextField
+        className={"input-container__text"}
         label="Task"
         variant="outlined"
         value={text}
@@ -44,10 +46,7 @@ function TodoItem(props) {
   } = props;
   
   return (
-    <ListItem
-      key={todo.id}
-      disablePadding
-    >
+    <ListItem disablePadding>
       <ListItemButton onClick={handleToggle(todo.id)} dense>
         <ListItemIcon>
           <Checkbox
@@ -95,6 +94,7 @@ export function TodoList(props) {
       <FormInput addTodo={addTodo} />
       {todos.map(item => (
         <TodoItem
+          key={item.id}
           todo={item}
           handleToggle={handleToggle}
           checked={checked}

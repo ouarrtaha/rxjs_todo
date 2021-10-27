@@ -1,0 +1,17 @@
+.todo__list {
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+
+  .input-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+
+    &__text {
+      margin-right: 8px;
+      min-width: 250px;
+    }
+  }
+
+}

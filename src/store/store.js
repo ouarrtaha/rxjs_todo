@@ -1,32 +1,19 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { ofType, combineEpics, createEpicMiddleware } from "redux-observable";
-import { map, flatMap } from "rxjs/operators";
-// import { ajax } from "rxjs/ajax";
+import {map, mergeMap} from "rxjs/operators";
 import * as Api from "../api";
 import {
-  GET_USER,
-  GET_USER_SUCCESS,
   GET_TODOS,
   GET_TODOS_SUCCESS,
   ADD_TODO,
   ADD_TODO_SUCCESS,
   COMPLETE_TODO,
   COMPLETE_TODO_SUCCESS,
-  getUserSuccess,
   getTodosSuccess,
   addTodoSuccess,
   completeTodoSuccess
 } from "./actions";
 
-
-function user(state = {}, action) {
-  switch (action.type) {
-    case GET_USER_SUCCESS:
-      return action.payload;
-    default:
-      return state;
-  }
-}
 
 function todos(state = [], action) {
   switch (action.type) {
@@ -46,38 +33,31 @@ function todos(state = [], action) {
   }
 }
 
-const rootReducer = combineReducers({ user, todos });
+const rootReducer = combineReducers({ todos });
 
-const userEpic = action$ =>
-  action$.pipe(
-    ofType(GET_USER),
-    flatMap(() => Api.getUser()),
-    map(user => getUserSuccess(user))
-  );
 
 const getTodosEpic = action$ =>
   action$.pipe(
-    ofType(GET_TODOS),
-    flatMap(() => Api.getTodos()),
+    ofType(GET_TODOS),//filter(action => action.type === GET_TODOS'),
+    mergeMap(() => Api.getTodos()),
     map(({ todos }) => getTodosSuccess(todos))
   );
 
 const addTodoEpic = action$ =>
   action$.pipe(
     ofType(ADD_TODO),
-    flatMap(action => Api.addTodo(action.payload)),
+    mergeMap(action => Api.addTodo(action.payload)),
     map(todo => addTodoSuccess(todo))
   );
 
 const completeTodoEpic = action$ =>
   action$.pipe(
     ofType(COMPLETE_TODO),
-    flatMap(action => Api.completeTodo(action.payload)),
+    mergeMap(action => Api.completeTodo(action.payload)),
     map(todo => completeTodoSuccess(todo))
   );
 
 const rootEpic = combineEpics(
-  userEpic,
   getTodosEpic,
   addTodoEpic,
   completeTodoEpic

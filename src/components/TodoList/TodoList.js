@@ -1,7 +1,6 @@
 import {
   Button,
   Checkbox,
-  LinearProgress,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -89,7 +88,6 @@ export function TodoList(props) {
   
   return (
     <div className="todo__list">
-      {/*<LinearProgress/>*/}
       <FormInput addTodo={addTodo} />
       {todos.map(item => (
         <TodoItem

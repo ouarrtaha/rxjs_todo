@@ -35,7 +35,7 @@ from(Promise.resolve('Hello World')).subscribe(console.log)*/
 /**
  * Ajax
  * fromFetch
- * ... full list: http://reactivex.io/rxjs/manual/overview.html#operators
+ * ... full list: https://rxjs.dev/guide/operators
  * */
 
 //---RxJs operators---
@@ -59,9 +59,9 @@ from(Promise.resolve('Hello World')).subscribe(console.log)*/
 
 
 /**
- * merge merges items from two streams in the order in which they arrive:
- * take: toke only the first count of vals
- * mapTo: Emits the given constant value on the output Observable every time the source Observable emits a value.
+ * merge(): merges items from two streams in the order in which they arrive:
+ * take(): toke only the first count of vals
+ * mapTo(): Emits the given constant value on the output Observable every time the source Observable emits a value.
  * */
 /*merge(
   interval(150).pipe(take(5), mapTo('A')),
@@ -73,8 +73,7 @@ from(Promise.resolve('Hello World')).subscribe(console.log)*/
  * Projects each source value to an Observable which is merged in the output Observable.
  * https://rxmarbles.com/#mergeMap
  * */
-/*const letters = of('a', 'b', 'c');
-const result = letters.pipe(
+/*const result = of('a', 'b', 'c').pipe(
   mergeMap(x => interval(1000).pipe(map(i => x+i))),
 );
 result.subscribe(x => console.log(x));*/

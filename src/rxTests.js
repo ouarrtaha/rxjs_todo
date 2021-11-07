@@ -27,7 +27,8 @@ interval2$.subscribe(val => console.log("stream 2 => " + val))*/
 
 
 /**
- * converts almost anything into a stream of values
+ * converts to observable from array or an array-like object,
+ * a Promise, an iterable object, or an Observable-like object.
  */
 /*from([1, 2, 3]).subscribe(console.log)
 from(Promise.resolve('Hello World')).subscribe(console.log)*/

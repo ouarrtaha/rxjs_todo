@@ -17,6 +17,7 @@ const names$ = ajax.getJSON(api)
   .pipe(
     map(({ results }) => results.map(user => `${user.name.first} ${user.name.last}`)),
     concatAll(),
+    concatMap(v => of(v).pipe(delay(1000)))
   );
 
 export default function UserList() {
